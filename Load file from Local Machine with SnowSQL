@@ -1,0 +1,9 @@
+--Here is an example on how to load a file from a local machine into Snowflake using SnowSQL.
+use GAIA_DB; 
+CREATE OR REPLACE FILE FORMAT json_format type ='json'; 
+CREATE OR REPLACE STAGE FF_dw_stage file_format = 'json_format';
+CREATE OR REPLACE TABLE json_table (json_data VARIANT);      
+
+PUT file:///Users/gaiapometto/Desktop/ber_7d_oct_clim.json @FF_dw_stage;
+
+copy into json_table from  @FF_dw_stage; 
